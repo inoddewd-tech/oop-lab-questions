@@ -1,51 +1,60 @@
 
-// StaffMember.java - Abstract Parent Class
+package lab04;
+
+// StaffMember is abstract because we should not create objects directly from it
 public abstract class StaffMember {
-    private final String staffID;
-    private final String fullName;
+
+    private String fullName;
+    private final String staffId;
     protected String department;
+
     private static int staffCount = 0;
-    
-    // Constructor
-    public StaffMember(String staffID, String fullName, String department) {
-        this.staffID = staffID;
+
+    public StaffMember(String fullName, String staffId, String department) {
         this.fullName = fullName;
+        this.staffId = staffId;
         this.department = department;
-        staffCount++;
+        staffCount++; // static count increases
     }
-    
-    // Abstract method - must be implemented by child classes
-    public abstract double calculateMonthlyPayment();
-    
-    // Final method - cannot be overridden by child classes
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
     public final void displayBasicDetails() {
-        System.out.println("Staff ID: " + staffID);
-        System.out.println("Full Name: " + fullName);
+        System.out.println("Name: " + fullName);
+        System.out.println("ID: " + staffId);
         System.out.println("Department: " + department);
     }
-    
-    // Static method - can be called using class name
+
+    public abstract double calculateMonthlyPayment();
+
+    // Static methods
     public static void showSystemName() {
         System.out.println("Campus Staff Payment System");
     }
-    
-    // Static method to get staff count
+
     public static int getStaffCount() {
         return staffCount;
     }
-    
-    // Method for controlled update of department
+
+    // Controlled update method
     public void changeDepartment(String newDepartment) {
-        if (newDepartment != null && !newDepartment.trim().isEmpty()) {
+        if (newDepartment != null && !newDepartment.isEmpty()) {
             this.department = newDepartment;
-            System.out.println("Department updated to: " + department);
-        } else {
-            System.out.println("Invalid department name. No changes made.");
         }
     }
-    
-    // Final method - common notice for all staff members
+
+    // final method
     public final void showCommonNotice() {
-        System.out.println("NOTICE: All staff members must complete monthly timesheets by the 25th.");
+        System.out.println("Notice: Follow university policies.");
     }
 }
